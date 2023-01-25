@@ -1,26 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container pt-1">
+    <div class="card">
+      <h2>Актуальные новости {{ now }}</h2>
+    </div>
+
+    <app-news
+      v-for="(item, index) in news"
+      :key="index"
+      :news="item"
+    ></app-news>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import AppNews from "./components/AppNews.vue";
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    AppNews,
+  },
+  data() {
+    return {
+      now: new Date().toLocaleDateString(),
+      isOpen: false,
+      news: [
+        {
+          title: "Аргентина выиграла Чемпионат Мира",
+          author: "Aibol",
+          isOpen: false,
+        },
+        {
+          title: "В США начинаются президенсткие выборы",
+          author: "Galymzhan",
+          isOpen: true,
+        },
+        {
+          title: "Ольга Рыбакина вышла в 1/2 финала",
+          author: "Asylzhan",
+          isOpen: false,
+        },
+      ],
+    };
+  },
+  methods: {
+    toggle() {
+      this.isOpen = !this.isOpen;
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
